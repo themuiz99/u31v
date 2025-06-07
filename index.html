@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U31V | Data Random</title>
+    <title>u-3-1-v | Data Random</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,8 +16,8 @@
         }
         body {
             font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับทั้งหน้าเว็บ */
-            background-color: #1a202c; /* Dark background for night mode */
-            color: #e2e8f0; /* Light text color */
+            background-color: #010101; /* สีดำสนิทสำหรับพื้นหลัง */
+            color: #E0E0E0; /* สีเทาอ่อนสำหรับตัวอักษรหลัก */
             display: flex;
             flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
             justify-content: space-between; /* กระจายพื้นที่เพื่อให้ Header และ Footer อยู่ด้านบน/ล่างสุด */
@@ -26,18 +26,28 @@
             padding: 0.2rem; /* ลด Padding รอบๆ เพื่อให้มีพื้นที่มากขึ้น */
             padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
         }
+
         .header-title {
-            font-size: 1.6rem; /* ลดขนาดตัวอักษรของชื่อเว็บลงอีก */
-            font-weight: 700; /* ตัวหนา */
-            color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            font-size: 2rem; /* เพิ่มขนาดตัวอักษรของชื่อเว็บให้ใหญ่ขึ้น */
+            font-weight: 900; /* ตัวหนาขึ้นมาก */
+            color: #FFFFFF; /* เปลี่ยนเป็นสีขาว */
             margin-bottom: 0.5rem; /* ลดระยะห่างจากด้านล่าง */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* เพิ่มเงาให้ดูมีมิติ */
+            /* ลดความฟุ้งลงเล็กน้อยและเปลี่ยนสีเป็นสีขาว */
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* ความฟุ้งเล็กน้อย */
             text-align: center; /* จัดให้อยู่กึ่งกลาง */
             line-height: 1.2; /* ปรับ line-height เพื่อให้ข้อความชิดกันมากขึ้น */
             white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
             max-width: 100%; /* จำกัดความกว้างสูงสุดไม่ให้เกินขอบ */
             overflow: hidden; /* ซ่อนส่วนที่เกิน */
             text-overflow: ellipsis; /* แสดง ... ถ้าข้อความยาวเกิน */
+            font-family: 'Inter', sans-serif; /* ใช้ Inter สำหรับตัวเลขให้ดูทันสมัย */
+        }
+
+        /* เพิ่มคลาสสำหรับตัวอักษรที่ต้องการให้เล็กกว่าใน Header Title */
+        .header-char { /* เปลี่ยนชื่อคลาสเพื่อให้ครอบคลุมขีดด้วย */
+            font-size: 0.7em; /* ทำให้ตัวอักษรเล็กกว่าตัวเลข */
+            font-weight: 600; /* ลดความหนาลงเล็กน้อย */
+            font-family: 'Mali', cursive; /* ให้ฟอนต์ Mali สำหรับตัวอักษรและขีด */
         }
         .container {
             width: 100%;
@@ -57,14 +67,13 @@
         @media (min-width: 768px) { /* สำหรับหน้าจอขนาดกลางขึ้นไป */
             .container {
                 grid-template-columns: repeat(3, 1fr); /* สามคอลัมน์ */
-                /* overflow-y: hidden; ยังคง hidden เพราะต้องการให้ฟิตในหน้าเดียว */
             }
         }
         .card {
-            background-color: #2d3748; /* สีเข้มขึ้นเล็กน้อยสำหรับ Card */
+            background-color: #1A1A1A; /* สีเทาเข้มสำหรับ Card */
             border-radius: 0.75rem; /* ขอบโค้งมน */
             padding: 0.7rem; /* ลด padding ภายใน Card อีก */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* เงาเข้มขึ้น */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -72,63 +81,66 @@
             text-align: center;
             flex-grow: 1; /* ให้ Card ขยายเต็มพื้นที่ใน Grid Cell */
             min-height: 0; /* อนุญาตให้ Card หดได้ถ้าจำเป็น */
+            border: 1px solid #333333; /* เพิ่มเส้นขอบเล็กน้อย */
         }
         .result-display {
-            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
-            padding: 0.5rem 0.7rem; /* เพิ่ม padding ของ display area เล็กน้อย */
+            background-color: #E0E0E0; /* พื้นหลังสีเทาอ่อน */
+            color: #1A1A1A; /* ตัวอักษรสีดำเข้ม */
+            padding: 0.5rem 0.7rem;
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-size: 1.1rem; /* ขนาดตัวอักษรปกติ (1.1rem) */
             font-weight: 800; /* ตัวหนาขึ้น */
             word-break: break-all;
             text-align: center;
-            cursor: pointer; /* เพิ่ม cursor pointer เพื่อบ่งบอกว่าคลิกได้ */
-            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับผลลัพธ์ */
         }
-        /* สไตล์สำหรับข้อความ Placeholder ใน .result-display */
         .result-display.placeholder-text {
             font-size: 0.9rem; /* ขนาดตัวอักษรเล็กลง */
-            color: #a0aec0; /* สีจางลง */
+            color: #808080; /* สีเทาจางลง */
             font-weight: 600; /* ไม่หนาเท่าผลลัพธ์ปกติ */
         }
 
         .input-field {
-            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+            background-color: #E0E0E0; /* พื้นหลังสีเทาอ่อน */
+            color: #1A1A1A; /* ตัวอักษรสีดำเข้ม */
             padding: 0.5rem 0.7rem;
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-size: 1.1rem;
             font-weight: 600;
             border: none;
             outline: none;
             text-align: center;
-            cursor: text; /* เปลี่ยนเป็น cursor text สำหรับ input field */
-            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+            cursor: text;
+            transition: background-color 0.2s ease-in-out;
+            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับ input field */
         }
         .input-field:hover {
-            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
+            background-color: #D0D0D0; /* สีเข้มขึ้นเมื่อ hover */
         }
         .bank-select-field { /* คลาสใหม่สำหรับ select ธนาคาร */
-            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+            background-color: #E0E0E0; /* พื้นหลังสีเทาอ่อน */
+            color: #1A1A1A; /* ตัวอักษรสีดำเข้ม */
             padding: 0.5rem 0.7rem;
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-size: 1.1rem;
             font-weight: 600;
             border: none;
             outline: none;
             text-align: center;
-            cursor: pointer; /* คง cursor pointer ไว้สำหรับการเลือก */
-            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับ select ธนาคาร */
         }
         .bank-select-field:hover {
-            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
+            background-color: #D0D0D0; /* สีเข้มขึ้นเมื่อ hover */
         }
 
         .button-group {
@@ -147,14 +159,14 @@
             font-size: 0.8rem;
         }
         .btn-primary {
-            background-color: #667eea;
+            background-color: #6A5ACD; /* สีม่วงอมน้ำเงิน (SlateBlue) */
             color: white;
         }
         .btn-primary:hover {
-            background-color: #5a67d8;
+            background-color: #483D8B; /* สีม่วงอมน้ำเงินเข้มขึ้นเมื่อ hover */
         }
         .btn-save {
-            background-color: #48bb78;
+            background-color: #20B2AA; /* สีเขียวอมฟ้า (LightSeaGreen) */
             color: white;
             padding: 0.3rem 0.6rem;
             font-size: 0.75rem;
@@ -162,11 +174,11 @@
             width: auto;
         }
         .btn-save:hover {
-            background-color: #38a169;
+            background-color: #008B8B; /* สีเขียวอมฟ้าเข้มขึ้นเมื่อ hover */
         }
         .footer-credit {
             font-size: 0.7rem;
-            color: #a0aec0;
+            color: #A9A9A9; /* สีเทาสำหรับเครดิต */
             margin-top: 0.6rem;
         }
         .message-box {
@@ -174,7 +186,7 @@
             bottom: 0.2rem;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #48bb78;
+            background-color: #20B2AA; /* สีเขียวอมฟ้าสำหรับข้อความสำเร็จ */
             color: white;
             padding: 0.3rem 0.6rem;
             border-radius: 0.5rem;
@@ -189,12 +201,14 @@
             opacity: 1;
         }
         .message-box.error {
-            background-color: #ef4444;
+            background-color: #DC143C; /* สีแดงเข้มสำหรับ error */
         }
     </style>
 </head>
 <body>
-    <div class="header-title">U31V</div>
+    <div class="header-title">
+        <span class="header-char">- </span>u<span class="header-num">3</span><span class="header-num">1</span>v<span class="header-char"> -</span>
+    </div>
 
     <div class="container">
         <!-- ยูสเซอร์ -->
@@ -274,7 +288,7 @@
         const themuizUserDisplay = document.getElementById('themuizUserDisplay');
         const phoneDisplay = document.getElementById('phoneDisplay');
         const bankAccountInput = document.getElementById('bankAccountInput');
-        const bankSelect = document.getElementById('bankSelect'); // ได้มาแล้วจากส่วนเลือกธนาคาร
+        const bankSelect = document.getElementById('bankSelect');
 
         // ฟังก์ชันอัปเดตยูสเซอร์และเบอร์โทรตามเลขบัญชี
         function updateLinkedFields() {
@@ -497,7 +511,7 @@
             "ธนาคารซีไอเอ็มบี ไทย", "ธนาคารยูโอบี", "ธนาคารแลนด์ แอนด์ เฮ้าส์", "ธนาคารไอซีบีซี (ไทย)",
             "ธนาคารเกียรตินาคินภัทร", "ธนาคารไทยเครดิต", "ธนาคารอาคารสงเคราะห์"
         ];
-        // bankSelect ถูกประกาศไว้แล้วข้างบน เพื่อให้ updateLinkedFields ใช้ได้
+        const bankSelect = document.getElementById('bankSelect');
 
 
         // Populate bank dropdown
@@ -563,5 +577,4 @@
     </script>
 </body>
 </html>
-
 
