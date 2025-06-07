@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>u-3-1-v | Data Random</title>
+    <title>U31V | Data Random</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,8 +16,8 @@
         }
         body {
             font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับทั้งหน้าเว็บ */
-            background-color: #010101; /* สีดำสนิทสำหรับพื้นหลัง */
-            color: #E0E0E0; /* สีเทาอ่อนสำหรับตัวอักษรหลัก */
+            background-color: #1a202c; /* Dark background for night mode */
+            color: #e2e8f0; /* Light text color */
             display: flex;
             flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
             justify-content: space-between; /* กระจายพื้นที่เพื่อให้ Header และ Footer อยู่ด้านบน/ล่างสุด */
@@ -26,37 +26,19 @@
             padding: 0.2rem; /* ลด Padding รอบๆ เพื่อให้มีพื้นที่มากขึ้น */
             padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
         }
-
         .header-title {
-            font-size: 2rem; /* เพิ่มขนาดตัวอักษรของชื่อเว็บให้ใหญ่ขึ้น */
-            font-weight: 900; /* ตัวหนาขึ้นมาก */
-            color: #FFFFFF; /* เปลี่ยนเป็นสีขาว */
+            font-size: 1.6rem; /* ลดขนาดตัวอักษรของชื่อเว็บลงอีก */
+            font-weight: 700; /* ตัวหนา */
+            color: #ffffff; /* เปลี่ยนเป็นสีขาว */
             margin-bottom: 0.5rem; /* ลดระยะห่างจากด้านล่าง */
-            /* ลดความฟุ้งลงเล็กน้อยและเปลี่ยนสีเป็นสีขาว */
-            text-shadow: 0 0 3px rgba(255, 255, 255, 0.8), 0 0 6px rgba(255, 255, 255, 0.4); /* ลดความฟุ้งลง */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* เพิ่มเงาให้ดูมีมิติ */
             text-align: center; /* จัดให้อยู่กึ่งกลาง */
             line-height: 1.2; /* ปรับ line-height เพื่อให้ข้อความชิดกันมากขึ้น */
             white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
             max-width: 100%; /* จำกัดความกว้างสูงสุดไม่ให้เกินขอบ */
             overflow: hidden; /* ซ่อนส่วนที่เกิน */
             text-overflow: ellipsis; /* แสดง ... ถ้าข้อความยาวเกิน */
-            font-family: 'Inter', sans-serif; /* ใช้ Inter สำหรับตัวเลขให้ดูทันสมัย */
-            position: relative; /* เพื่อให้แน่ใจว่า text-shadow ทำงานได้ดี */
-            z-index: 10; /* ให้ Header อยู่ด้านบนสุด */
         }
-
-        /* เพิ่มคลาสสำหรับตัวอักษรที่ต้องการให้เล็กกว่าใน Header Title */
-        .header-char { /* เปลี่ยนชื่อคลาสเพื่อให้ครอบคลุมขีดด้วย */
-            font-size: 0.7em; /* ทำให้ตัวอักษรเล็กกว่าตัวเลข */
-            font-weight: 600; /* ลดความหนาลงเล็กน้อย */
-            font-family: 'Mali', cursive; /* ให้ฟอนต์ Mali สำหรับตัวอักษรและขีด */
-        }
-        .header-num { /* คลาสสำหรับตัวเลข */
-            font-size: 1em; /* ขนาดเท่ากับ .header-title โดยรวม (2rem) */
-            font-weight: 900; /* ตัวหนามาก */
-            font-family: 'Inter', sans-serif; /* ใช้ Inter สำหรับตัวเลข */
-        }
-
         .container {
             width: 100%;
             max-width: 900px; /* กำหนดความกว้างสูงสุดสำหรับหน้าจอใหญ่ */
@@ -71,19 +53,18 @@
             padding: 0.2rem; /* ลด padding ภายใน Container อีก */
             padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
             height: 100%; /* ให้ Container ใช้ความสูงที่เหลือทั้งหมด */
-            position: relative; /* เพื่อให้แน่ใจว่าอยู่ด้านบนสุด */
-            z-index: 5; /* ให้อยู่ด้านบนเนื้อหาอื่นๆ แต่ยังคงต่ำกว่า header */
         }
         @media (min-width: 768px) { /* สำหรับหน้าจอขนาดกลางขึ้นไป */
             .container {
                 grid-template-columns: repeat(3, 1fr); /* สามคอลัมน์ */
+                /* overflow-y: hidden; ยังคง hidden เพราะต้องการให้ฟิตในหน้าเดียว */
             }
         }
         .card {
-            background-color: #1A1A1A; /* สีเทาเข้มสำหรับ Card */
+            background-color: #2d3748; /* สีเข้มขึ้นเล็กน้อยสำหรับ Card */
             border-radius: 0.75rem; /* ขอบโค้งมน */
             padding: 0.7rem; /* ลด padding ภายใน Card อีก */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* เงาเข้มขึ้น */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -91,66 +72,63 @@
             text-align: center;
             flex-grow: 1; /* ให้ Card ขยายเต็มพื้นที่ใน Grid Cell */
             min-height: 0; /* อนุญาตให้ Card หดได้ถ้าจำเป็น */
-            border: 1px solid #333333; /* เพิ่มเส้นขอบเล็กน้อย */
         }
         .result-display {
-            background-color: #E0E0E0; /* พื้นหลังสีเทาอ่อน */
-            color: #1A1A1A; /* ตัวอักษรสีดำเข้ม */
-            padding: 0.5rem 0.7rem;
+            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+            padding: 0.5rem 0.7rem; /* เพิ่ม padding ของ display area เล็กน้อย */
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem; /* ขนาดตัวอักษรปกติ (1.1rem) */
+            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
             font-weight: 800; /* ตัวหนาขึ้น */
             word-break: break-all;
             text-align: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับผลลัพธ์ */
+            cursor: pointer; /* เพิ่ม cursor pointer เพื่อบ่งบอกว่าคลิกได้ */
+            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
         }
+        /* สไตล์สำหรับข้อความ Placeholder ใน .result-display */
         .result-display.placeholder-text {
             font-size: 0.9rem; /* ขนาดตัวอักษรเล็กลง */
-            color: #808080; /* สีเทาจางลง */
+            color: #a0aec0; /* สีจางลง */
             font-weight: 600; /* ไม่หนาเท่าผลลัพธ์ปกติ */
         }
 
         .input-field {
-            background-color: #E0E0E0; /* พื้นหลังสีเทาอ่อน */
-            color: #1A1A1A; /* ตัวอักษรสีดำเข้ม */
+            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
             padding: 0.5rem 0.7rem;
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
             font-weight: 600;
             border: none;
             outline: none;
             text-align: center;
-            cursor: text;
-            transition: background-color 0.2s ease-in-out;
-            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับ input field */
+            cursor: text; /* เปลี่ยนเป็น cursor text สำหรับ input field */
+            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
         }
         .input-field:hover {
-            background-color: #D0D0D0; /* สีเข้มขึ้นเมื่อ hover */
+            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
         }
         .bank-select-field { /* คลาสใหม่สำหรับ select ธนาคาร */
-            background-color: #E0E0E0; /* พื้นหลังสีเทาอ่อน */
-            color: #1A1A1A; /* ตัวอักษรสีดำเข้ม */
+            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
             padding: 0.5rem 0.7rem;
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem;
+            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
             font-weight: 600;
             border: none;
             outline: none;
             text-align: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับ select ธนาคาร */
+            cursor: pointer; /* คง cursor pointer ไว้สำหรับการเลือก */
+            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
         }
         .bank-select-field:hover {
-            background-color: #D0D0D0; /* สีเข้มขึ้นเมื่อ hover */
+            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
         }
 
         .button-group {
@@ -169,14 +147,14 @@
             font-size: 0.8rem;
         }
         .btn-primary {
-            background-color: #6A5ACD; /* สีม่วงอมน้ำเงิน (SlateBlue) */
+            background-color: #667eea;
             color: white;
         }
         .btn-primary:hover {
-            background-color: #483D8B; /* สีม่วงอมน้ำเงินเข้มขึ้นเมื่อ hover */
+            background-color: #5a67d8;
         }
         .btn-save {
-            background-color: #20B2AA; /* สีเขียวอมฟ้า (LightSeaGreen) */
+            background-color: #48bb78;
             color: white;
             padding: 0.3rem 0.6rem;
             font-size: 0.75rem;
@@ -184,11 +162,11 @@
             width: auto;
         }
         .btn-save:hover {
-            background-color: #008B8B; /* สีเขียวอมฟ้าเข้มขึ้นเมื่อ hover */
+            background-color: #38a169;
         }
         .footer-credit {
             font-size: 0.7rem;
-            color: #A9A9A9; /* สีเทาสำหรับเครดิต */
+            color: #a0aec0;
             margin-top: 0.6rem;
         }
         .message-box {
@@ -196,7 +174,7 @@
             bottom: 0.2rem;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #20B2AA; /* สีเขียวอมฟ้าสำหรับข้อความสำเร็จ */
+            background-color: #48bb78;
             color: white;
             padding: 0.3rem 0.6rem;
             border-radius: 0.5rem;
@@ -211,14 +189,12 @@
             opacity: 1;
         }
         .message-box.error {
-            background-color: #DC143C; /* สีแดงเข้มสำหรับ error */
+            background-color: #ef4444;
         }
     </style>
 </head>
 <body>
-    <div class="header-title">
-        <span class="header-char">- </span>u<span class="header-num">3</span><span class="header-num">1</span>v<span class="header-char"> -</span>
-    </div>
+    <div class="header-title">U31V</div>
 
     <div class="container">
         <!-- ยูสเซอร์ -->
@@ -298,14 +274,12 @@
         const themuizUserDisplay = document.getElementById('themuizUserDisplay');
         const phoneDisplay = document.getElementById('phoneDisplay');
         const bankAccountInput = document.getElementById('bankAccountInput');
-        const bankSelect = document.getElementById('bankSelect');
+        const bankSelect = document.getElementById('bankSelect'); // ได้มาแล้วจากส่วนเลือกธนาคาร
 
         // ฟังก์ชันอัปเดตยูสเซอร์และเบอร์โทรตามเลขบัญชี
         function updateLinkedFields() {
-            console.log('updateLinkedFields called'); // Debugging log
             const accountNumber = bankAccountInput.value.replace(/\D/g, ''); // ลบอักขระที่ไม่ใช่ตัวเลขออก
             const selectedBank = bankSelect.value;
-            console.log('Account Number:', accountNumber, 'Selected Bank:', selectedBank); // Debugging log
 
             // อัปเดตยูสเซอร์
             if (accountNumber.length > 0) { // ตรวจสอบว่ามีการป้อนเลขบัญชี
@@ -349,21 +323,14 @@
         }
 
         // Event listener สำหรับการป้อนเลขบัญชี
-        bankAccountInput.addEventListener('input', () => {
-            console.log('bankAccountInput input event fired'); // Debugging log
-            updateLinkedFields();
-        });
+        bankAccountInput.addEventListener('input', updateLinkedFields);
         // Event listener สำหรับการเปลี่ยนธนาคารที่เลือก
-        bankSelect.addEventListener('change', () => {
-            console.log('bankSelect change event fired'); // Debugging log
-            updateLinkedFields();
-        });
+        bankSelect.addEventListener('change', updateLinkedFields);
 
 
         // Event listeners สำหรับการคลิกเพื่อคัดลอก
         // ยูสเซอร์
         themuizUserDisplay.addEventListener('click', () => {
-            console.log('themuizUserDisplay clicked'); // Debugging log
             if (themuizUserDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && themuizUserDisplay.textContent !== '') {
                 copyToClipboard(themuizUserDisplay.textContent);
             } else {
@@ -373,7 +340,6 @@
 
         // เบอร์โทร
         phoneDisplay.addEventListener('click', () => {
-            console.log('phoneDisplay clicked'); // Debugging log
             if (phoneDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && phoneDisplay.textContent !== '') {
                 copyToClipboard(phoneDisplay.textContent);
             } else {
@@ -383,7 +349,6 @@
 
         // เลขบัญชี (สำหรับ input field ที่กรอกได้)
         bankAccountInput.addEventListener('click', (event) => {
-            console.log('bankAccountInput clicked'); // Debugging log
             // ป้องกันการคัดลอกเมื่อคลิกเพื่อโฟกัสหรือพิมพ์
             if (event.target === document.activeElement) {
                 // ถ้า element นี้ถูก focus อยู่แล้ว (กำลังพิมพ์) ไม่ต้องคัดลอก
@@ -513,12 +478,10 @@
         }
 
         document.getElementById('randomNameSurnameBtn').addEventListener('click', () => {
-            console.log('randomNameSurnameBtn clicked'); // Debugging log
             document.getElementById('nameSurnameDisplay').textContent = generateThaiNameSurname();
         });
         // Event listener สำหรับการคลิกเพื่อคัดลอกชื่อ-นามสกุล
         document.getElementById('nameSurnameDisplay').addEventListener('click', () => {
-            console.log('nameSurnameDisplay clicked'); // Debugging log
             if (document.getElementById('nameSurnameDisplay').textContent !== 'กด "สุ่ม" เพื่อสร้าง') {
                 copyToClipboard(document.getElementById('nameSurnameDisplay').textContent);
             } else {
@@ -539,7 +502,6 @@
 
         // Populate bank dropdown
         function populateBankDropdown() {
-            console.log('populateBankDropdown called'); // Debugging log
             // เคลียร์ตัวเลือกเก่าก่อนเสมอ
             bankSelect.innerHTML = '';
             bankNames.forEach(bank => {
@@ -549,10 +511,10 @@
                 bankSelect.appendChild(option);
             });
         }
+        populateBankDropdown(); // Call to populate on load
 
         // --- ส่วนบันทึกไฟล์ ---
         document.getElementById('saveFileBtn').addEventListener('click', () => {
-            console.log('saveFileBtn clicked'); // Debugging log
             const user = themuizUserDisplay.textContent;
             const nameSurname = document.getElementById('nameSurnameDisplay').textContent;
             const phone = phoneDisplay.textContent;
@@ -596,13 +558,10 @@
             showMessage('บันทึกไฟล์เรียบร้อยแล้ว!');
         });
 
-        // ตั้งค่าเริ่มต้นเมื่อโหลดหน้า - ใช้ window.onload เพื่อให้แน่ใจว่า DOM พร้อมใช้งาน
-        window.onload = function() {
-            console.log('Window loaded. Initializing fields.'); // Debugging log
-            populateBankDropdown();
-            updateLinkedFields();
-        };
+        // ตั้งค่าเริ่มต้นเมื่อโหลดหน้า
+        updateLinkedFields();
     </script>
 </body>
 </html>
+
 
