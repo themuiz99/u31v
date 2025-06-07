@@ -33,7 +33,7 @@
             color: #FFFFFF; /* เปลี่ยนเป็นสีขาว */
             margin-bottom: 0.5rem; /* ลดระยะห่างจากด้านล่าง */
             /* ลดความฟุ้งลงเล็กน้อยและเปลี่ยนสีเป็นสีขาว */
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* ความฟุ้งเล็กน้อย */
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.8), 0 0 6px rgba(255, 255, 255, 0.4); /* ลดความฟุ้งลง */
             text-align: center; /* จัดให้อยู่กึ่งกลาง */
             line-height: 1.2; /* ปรับ line-height เพื่อให้ข้อความชิดกันมากขึ้น */
             white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
@@ -41,6 +41,8 @@
             overflow: hidden; /* ซ่อนส่วนที่เกิน */
             text-overflow: ellipsis; /* แสดง ... ถ้าข้อความยาวเกิน */
             font-family: 'Inter', sans-serif; /* ใช้ Inter สำหรับตัวเลขให้ดูทันสมัย */
+            position: relative; /* เพื่อให้แน่ใจว่า text-shadow ทำงานได้ดี */
+            z-index: 10; /* ให้ Header อยู่ด้านบนสุด */
         }
 
         /* เพิ่มคลาสสำหรับตัวอักษรที่ต้องการให้เล็กกว่าใน Header Title */
@@ -49,6 +51,12 @@
             font-weight: 600; /* ลดความหนาลงเล็กน้อย */
             font-family: 'Mali', cursive; /* ให้ฟอนต์ Mali สำหรับตัวอักษรและขีด */
         }
+        .header-num { /* คลาสสำหรับตัวเลข */
+            font-size: 1em; /* ขนาดเท่ากับ .header-title โดยรวม (2rem) */
+            font-weight: 900; /* ตัวหนามาก */
+            font-family: 'Inter', sans-serif; /* ใช้ Inter สำหรับตัวเลข */
+        }
+
         .container {
             width: 100%;
             max-width: 900px; /* กำหนดความกว้างสูงสุดสำหรับหน้าจอใหญ่ */
@@ -63,6 +71,8 @@
             padding: 0.2rem; /* ลด padding ภายใน Container อีก */
             padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
             height: 100%; /* ให้ Container ใช้ความสูงที่เหลือทั้งหมด */
+            position: relative; /* เพื่อให้แน่ใจว่าอยู่ด้านบนสุด */
+            z-index: 5; /* ให้อยู่ด้านบนเนื้อหาอื่นๆ แต่ยังคงต่ำกว่า header */
         }
         @media (min-width: 768px) { /* สำหรับหน้าจอขนาดกลางขึ้นไป */
             .container {
@@ -292,8 +302,10 @@
 
         // ฟังก์ชันอัปเดตยูสเซอร์และเบอร์โทรตามเลขบัญชี
         function updateLinkedFields() {
+            console.log('updateLinkedFields called'); // Debugging log
             const accountNumber = bankAccountInput.value.replace(/\D/g, ''); // ลบอักขระที่ไม่ใช่ตัวเลขออก
             const selectedBank = bankSelect.value;
+            console.log('Account Number:', accountNumber, 'Selected Bank:', selectedBank); // Debugging log
 
             // อัปเดตยูสเซอร์
             if (accountNumber.length > 0) { // ตรวจสอบว่ามีการป้อนเลขบัญชี
@@ -337,14 +349,21 @@
         }
 
         // Event listener สำหรับการป้อนเลขบัญชี
-        bankAccountInput.addEventListener('input', updateLinkedFields);
+        bankAccountInput.addEventListener('input', () => {
+            console.log('bankAccountInput input event fired'); // Debugging log
+            updateLinkedFields();
+        });
         // Event listener สำหรับการเปลี่ยนธนาคารที่เลือก
-        bankSelect.addEventListener('change', updateLinkedFields);
+        bankSelect.addEventListener('change', () => {
+            console.log('bankSelect change event fired'); // Debugging log
+            updateLinkedFields();
+        });
 
 
         // Event listeners สำหรับการคลิกเพื่อคัดลอก
         // ยูสเซอร์
         themuizUserDisplay.addEventListener('click', () => {
+            console.log('themuizUserDisplay clicked'); // Debugging log
             if (themuizUserDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && themuizUserDisplay.textContent !== '') {
                 copyToClipboard(themuizUserDisplay.textContent);
             } else {
@@ -354,6 +373,7 @@
 
         // เบอร์โทร
         phoneDisplay.addEventListener('click', () => {
+            console.log('phoneDisplay clicked'); // Debugging log
             if (phoneDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && phoneDisplay.textContent !== '') {
                 copyToClipboard(phoneDisplay.textContent);
             } else {
@@ -363,6 +383,7 @@
 
         // เลขบัญชี (สำหรับ input field ที่กรอกได้)
         bankAccountInput.addEventListener('click', (event) => {
+            console.log('bankAccountInput clicked'); // Debugging log
             // ป้องกันการคัดลอกเมื่อคลิกเพื่อโฟกัสหรือพิมพ์
             if (event.target === document.activeElement) {
                 // ถ้า element นี้ถูก focus อยู่แล้ว (กำลังพิมพ์) ไม่ต้องคัดลอก
@@ -492,10 +513,12 @@
         }
 
         document.getElementById('randomNameSurnameBtn').addEventListener('click', () => {
+            console.log('randomNameSurnameBtn clicked'); // Debugging log
             document.getElementById('nameSurnameDisplay').textContent = generateThaiNameSurname();
         });
         // Event listener สำหรับการคลิกเพื่อคัดลอกชื่อ-นามสกุล
         document.getElementById('nameSurnameDisplay').addEventListener('click', () => {
+            console.log('nameSurnameDisplay clicked'); // Debugging log
             if (document.getElementById('nameSurnameDisplay').textContent !== 'กด "สุ่ม" เพื่อสร้าง') {
                 copyToClipboard(document.getElementById('nameSurnameDisplay').textContent);
             } else {
@@ -511,11 +534,12 @@
             "ธนาคารซีไอเอ็มบี ไทย", "ธนาคารยูโอบี", "ธนาคารแลนด์ แอนด์ เฮ้าส์", "ธนาคารไอซีบีซี (ไทย)",
             "ธนาคารเกียรตินาคินภัทร", "ธนาคารไทยเครดิต", "ธนาคารอาคารสงเคราะห์"
         ];
-        const bankSelect = document.getElementById('bankSelect');
+        // bankSelect ถูกประกาศไว้แล้วข้างบน เพื่อให้ updateLinkedFields ใช้ได้
 
 
         // Populate bank dropdown
         function populateBankDropdown() {
+            console.log('populateBankDropdown called'); // Debugging log
             // เคลียร์ตัวเลือกเก่าก่อนเสมอ
             bankSelect.innerHTML = '';
             bankNames.forEach(bank => {
@@ -525,10 +549,10 @@
                 bankSelect.appendChild(option);
             });
         }
-        populateBankDropdown(); // Call to populate on load
 
         // --- ส่วนบันทึกไฟล์ ---
         document.getElementById('saveFileBtn').addEventListener('click', () => {
+            console.log('saveFileBtn clicked'); // Debugging log
             const user = themuizUserDisplay.textContent;
             const nameSurname = document.getElementById('nameSurnameDisplay').textContent;
             const phone = phoneDisplay.textContent;
@@ -572,8 +596,12 @@
             showMessage('บันทึกไฟล์เรียบร้อยแล้ว!');
         });
 
-        // ตั้งค่าเริ่มต้นเมื่อโหลดหน้า
-        updateLinkedFields();
+        // ตั้งค่าเริ่มต้นเมื่อโหลดหน้า - ใช้ window.onload เพื่อให้แน่ใจว่า DOM พร้อมใช้งาน
+        window.onload = function() {
+            console.log('Window loaded. Initializing fields.'); // Debugging log
+            populateBankDropdown();
+            updateLinkedFields();
+        };
     </script>
 </body>
 </html>
