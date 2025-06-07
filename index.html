@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U31V | Data Random</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* กำหนดให้ HTML และ Body สูงเต็มหน้าจอและซ่อน Scrollbar */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* ซ่อน Scrollbar ของหน้าเว็บทั้งหมด เพื่อให้ฟิตหน้าจอเดียว */
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับทั้งหน้าเว็บ */
+            background-color: #1a202c; /* Dark background for night mode */
+            color: #e2e8f0; /* Light text color */
+            display: flex;
+            flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
+            justify-content: space-between; /* กระจายพื้นที่เพื่อให้ Header และ Footer อยู่ด้านบน/ล่างสุด */
+            align-items: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+            height: 100vh; /* กำหนดให้ Body สูงเท่า Viewport พอดี */
+            padding: 0.2rem; /* ลด Padding รอบๆ เพื่อให้มีพื้นที่มากขึ้น */
+            padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
+        }
+        .header-title {
+            font-size: 1.6rem; /* ลดขนาดตัวอักษรของชื่อเว็บลงอีก */
+            font-weight: 700; /* ตัวหนา */
+            color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            margin-bottom: 0.5rem; /* ลดระยะห่างจากด้านล่าง */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* เพิ่มเงาให้ดูมีมิติ */
+            text-align: center; /* จัดให้อยู่กึ่งกลาง */
+            line-height: 1.2; /* ปรับ line-height เพื่อให้ข้อความชิดกันมากขึ้น */
+            white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
+            max-width: 100%; /* จำกัดความกว้างสูงสุดไม่ให้เกินขอบ */
+            overflow: hidden; /* ซ่อนส่วนที่เกิน */
+            text-overflow: ellipsis; /* แสดง ... ถ้าข้อความยาวเกิน */
+        }
+        .container {
+            width: 100%;
+            max-width: 900px; /* กำหนดความกว้างสูงสุดสำหรับหน้าจอใหญ่ */
+            flex-grow: 1; /* ให้ Container ขยายเต็มพื้นที่ที่เหลืออยู่ระหว่าง Header และ Footer */
+            display: grid;
+            gap: 0.6rem; /* ลดระยะห่างระหว่าง Card ลงอีก */
+            /* Responsive grid layout */
+            grid-template-columns: 1fr; /* คอลัมน์เดียวสำหรับหน้าจอเล็ก */
+            align-items: center; /* จัด Card ให้อยู่ตรงกลางแนวตั้งภายใน Grid */
+            justify-content: center; /* จัด Card ให้อยู่ตรงกลางแนวนอนภายใน Grid */
+            overflow-y: hidden; /* ซ่อน Scrollbar ของ Container เพื่อให้ฟิตหน้าจอเดียว */
+            padding: 0.2rem; /* ลด padding ภายใน Container อีก */
+            padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
+            height: 100%; /* ให้ Container ใช้ความสูงที่เหลือทั้งหมด */
+        }
+        @media (min-width: 768px) { /* สำหรับหน้าจอขนาดกลางขึ้นไป */
+            .container {
+                grid-template-columns: repeat(3, 1fr); /* สามคอลัมน์ */
+                /* overflow-y: hidden; ยังคง hidden เพราะต้องการให้ฟิตในหน้าเดียว */
+            }
+        }
+        .card {
+            background-color: #2d3748; /* สีเข้มขึ้นเล็กน้อยสำหรับ Card */
+            border-radius: 0.75rem; /* ขอบโค้งมน */
+            padding: 0.7rem; /* ลด padding ภายใน Card อีก */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between; /* กระจายพื้นที่ให้เท่ากัน */
+            text-align: center;
+            flex-grow: 1; /* ให้ Card ขยายเต็มพื้นที่ใน Grid Cell */
+            min-height: 0; /* อนุญาตให้ Card หดได้ถ้าจำเป็น */
+        }
+        .result-display {
+            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+            padding: 0.5rem 0.7rem; /* เพิ่ม padding ของ display area เล็กน้อย */
+            border-radius: 0.5rem;
+            margin-bottom: 0.6rem;
+            width: 100%;
+            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-weight: 800; /* ตัวหนาขึ้น */
+            word-break: break-all;
+            text-align: center;
+            cursor: pointer; /* เพิ่ม cursor pointer เพื่อบ่งบอกว่าคลิกได้ */
+            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+        }
+        /* สไตล์สำหรับข้อความ Placeholder ใน .result-display */
+        .result-display.placeholder-text {
+            font-size: 0.9rem; /* ขนาดตัวอักษรเล็กลง */
+            color: #a0aec0; /* สีจางลง */
+            font-weight: 600; /* ไม่หนาเท่าผลลัพธ์ปกติ */
+        }
+
+        .input-field {
+            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+            padding: 0.5rem 0.7rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.6rem;
+            width: 100%;
+            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-weight: 600;
+            border: none;
+            outline: none;
+            text-align: center;
+            cursor: text; /* เปลี่ยนเป็น cursor text สำหรับ input field */
+            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+        }
+        .input-field:hover {
+            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
+        }
+        .bank-select-field { /* คลาสใหม่สำหรับ select ธนาคาร */
+            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+            padding: 0.5rem 0.7rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.6rem;
+            width: 100%;
+            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-weight: 600;
+            border: none;
+            outline: none;
+            text-align: center;
+            cursor: pointer; /* คง cursor pointer ไว้สำหรับการเลือก */
+            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+        }
+        .bank-select-field:hover {
+            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.4rem;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            flex: 1;
+            font-size: 0.8rem;
+        }
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #5a67d8;
+        }
+        .btn-save {
+            background-color: #48bb78;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            margin-top: 0.6rem;
+            width: auto;
+        }
+        .btn-save:hover {
+            background-color: #38a169;
+        }
+        .footer-credit {
+            font-size: 0.7rem;
+            color: #a0aec0;
+            margin-top: 0.6rem;
+        }
+        .message-box {
+            position: fixed;
+            bottom: 0.2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #48bb78;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 1000;
+            white-space: nowrap;
+            font-size: 0.75rem;
+        }
+        .message-box.show {
+            opacity: 1;
+        }
+        .message-box.error {
+            background-color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-title">U31V</div>
+
+    <div class="container">
+        <!-- ยูสเซอร์ -->
+        <div class="card">
+            <h2 class="text-lg font-bold mb-3">ยูสเซอร์</h2>
+            <div id="themuizUserDisplay" class="result-display placeholder-text">ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว</div>
+        </div>
+
+        <!-- เบอร์โทร -->
+        <div class="card">
+            <h2 class="text-lg font-bold mb-3">เบอร์โทร</h2>
+            <div id="phoneDisplay" class="result-display placeholder-text">ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว</div>
+        </div>
+
+        <!-- สุ่มชื่อ-นามสกุล -->
+        <div class="card">
+            <h2 class="text-lg font-bold mb-3">ชื่อ-นามสกุล</h2>
+            <div id="nameSurnameDisplay" class="result-display">กด "สุ่ม" เพื่อสร้าง</div>
+            <div class="button-group">
+                <button id="randomNameSurnameBtn" class="btn btn-primary">สุ่ม</button>
+            </div>
+        </div>
+
+        <!-- เลือกธนาคาร -->
+        <div class="card">
+            <h2 class="text-lg font-bold mb-3">เลือกธนาคาร</h2>
+            <select id="bankSelect" class="bank-select-field">
+                <!-- ตัวเลือกจะถูกสร้างด้วย JavaScript -->
+            </select>
+        </div>
+
+        <!-- กรอกเลขบัญชีธนาคาร -->
+        <div class="card">
+            <h2 class="text-lg font-bold mb-3">เลขบัญชีธนาคาร</h2>
+            <input type="text" id="bankAccountInput" class="input-field" placeholder="กรอกเลขบัญชีที่นี่">
+        </div>
+    </div>
+
+    <div class="w-full flex justify-center">
+        <button id="saveFileBtn" class="btn btn-save">บันทึกรายการ</button>
+    </div>
+
+    <div class="footer-credit">Themuiz × มะลิ</div>
+
+    <div id="messageBox" class="message-box"></div>
+
+    <script>
+        // ฟังก์ชันสำหรับแสดงข้อความแจ้งเตือน
+        function showMessage(message, type = 'success') {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.classList.remove('success', 'error');
+            messageBox.classList.add(type);
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show', type);
+            }, 2000);
+        }
+
+        // ฟังก์ชันสำหรับคัดลอกข้อความไปที่คลิปบอร์ด
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showMessage('คัดลอกแล้ว!');
+            } catch (err) {
+                console.error('ไม่สามารถคัดลอกได้:', err);
+                showMessage('คัดลอกไม่สำเร็จ', 'error');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // --- ส่วนยูสเซอร์ และเบอร์โทร (ผูกกับเลขบัญชี) ---
+        const themuizUserDisplay = document.getElementById('themuizUserDisplay');
+        const phoneDisplay = document.getElementById('phoneDisplay');
+        const bankAccountInput = document.getElementById('bankAccountInput');
+        const bankSelect = document.getElementById('bankSelect'); // ได้มาแล้วจากส่วนเลือกธนาคาร
+
+        // ฟังก์ชันอัปเดตยูสเซอร์และเบอร์โทรตามเลขบัญชี
+        function updateLinkedFields() {
+            const accountNumber = bankAccountInput.value.replace(/\D/g, ''); // ลบอักขระที่ไม่ใช่ตัวเลขออก
+            const selectedBank = bankSelect.value;
+
+            // อัปเดตยูสเซอร์
+            if (accountNumber.length > 0) { // ตรวจสอบว่ามีการป้อนเลขบัญชี
+                let suffixDigits;
+                if (selectedBank === 'ธนาคารอาคารสงเคราะห์') {
+                    suffixDigits = accountNumber.slice(-3);
+                    // ตรวจสอบความยาวของ accountNumber เพื่อให้แน่ใจว่ามี 3 หลักก่อนแสดงผล
+                    if (accountNumber.length >= 3) {
+                        themuizUserDisplay.textContent = `themuiz${suffixDigits}`;
+                        themuizUserDisplay.classList.remove('placeholder-text');
+                    } else {
+                        themuizUserDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                        themuizUserDisplay.classList.add('placeholder-text');
+                    }
+                } else {
+                    suffixDigits = accountNumber.slice(-4);
+                    // ตรวจสอบความยาวของ accountNumber เพื่อให้แน่ใจว่ามี 4 หลักก่อนแสดงผล
+                    if (accountNumber.length >= 4) {
+                        themuizUserDisplay.textContent = `themuiz${suffixDigits}`;
+                        themuizUserDisplay.classList.remove('placeholder-text');
+                    } else {
+                        themuizUserDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                        themuizUserDisplay.classList.add('placeholder-text');
+                    }
+                }
+            } else {
+                themuizUserDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                themuizUserDisplay.classList.add('placeholder-text');
+            }
+
+
+            // อัปเดตเบอร์โทร (ยังคงใช้ 8 หลักท้ายเหมือนเดิม)
+            if (accountNumber.length >= 8) {
+                const lastEightDigits = accountNumber.slice(-8);
+                phoneDisplay.textContent = `09${lastEightDigits}`;
+                phoneDisplay.classList.remove('placeholder-text');
+            } else {
+                phoneDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                phoneDisplay.classList.add('placeholder-text');
+            }
+        }
+
+        // Event listener สำหรับการป้อนเลขบัญชี
+        bankAccountInput.addEventListener('input', updateLinkedFields);
+        // Event listener สำหรับการเปลี่ยนธนาคารที่เลือก
+        bankSelect.addEventListener('change', updateLinkedFields);
+
+
+        // Event listeners สำหรับการคลิกเพื่อคัดลอก
+        // ยูสเซอร์
+        themuizUserDisplay.addEventListener('click', () => {
+            if (themuizUserDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && themuizUserDisplay.textContent !== '') {
+                copyToClipboard(themuizUserDisplay.textContent);
+            } else {
+                showMessage('ไม่มีข้อมูลยูสเซอร์ให้คัดลอก', 'error');
+            }
+        });
+
+        // เบอร์โทร
+        phoneDisplay.addEventListener('click', () => {
+            if (phoneDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && phoneDisplay.textContent !== '') {
+                copyToClipboard(phoneDisplay.textContent);
+            } else {
+                showMessage('ไม่มีข้อมูลเบอร์โทรให้คัดลอก', 'error');
+            }
+        });
+
+        // เลขบัญชี (สำหรับ input field ที่กรอกได้)
+        bankAccountInput.addEventListener('click', (event) => {
+            // ป้องกันการคัดลอกเมื่อคลิกเพื่อโฟกัสหรือพิมพ์
+            if (event.target === document.activeElement) {
+                // ถ้า element นี้ถูก focus อยู่แล้ว (กำลังพิมพ์) ไม่ต้องคัดลอก
+                return;
+            }
+            if (bankAccountInput.value !== '') {
+                copyToClipboard(bankAccountInput.value);
+            } else {
+                showMessage('ไม่มีเลขบัญชีให้คัดลอก', 'error');
+            }
+        });
+
+
+        // --- ส่วนชื่อ-นามสกุล ---
+        const thaiSanskritNames = [
+            "อรุณ", "เมษา", "นารา", "ปัญญา", "วิชา", "สุริยา", "จันทรา", "อัปสร", "มณี", "กมล",
+            "เพชร", "รุ่ง", "แก้ว", "ทิพย์", "บุษบา", "มาลี", "วารี", "ศิริ", "สุข", "สมบัติ",
+            "รัตนา", "อัญชลี", "กานต์", "พิชญา", "ธนากร", "ปรีชา", "วาสนา", "อารยา", "จิราพร", "ชนกชนม์",
+            "กัลยา", "กัญญา", "กิตติ", "เกศรา", "ขวัญฤดี", "จารุ", "จิรวัฒน์", "ชนินทร์", "ชลธิชา", "ชุติมา",
+            "ณัฐพล", "ดารุณี", "ทิพวรรณ", "ธนวัฒน์", "ธิดารัตน์", "นพรัตน์", "นันทนา", "นฤมล", "บุญญานุช", "บุษกร",
+            "ปนัดดา", "ปรียา", "พงษ์ศักดิ์", "พัชรี", "พิมพา", "ไพโรจน์", "ภัทรวดี", "ภาณุพงศ์", "มยุรี", "มนตรี",
+            "ยุพิน", "รุ่งทิวา", "ลลิตา", "วรัญญา", "วราภรณ์", "วิภาดา", "ศศิธร", "สมชาย", "สุนิสา", "สุพรรณี",
+            "อภิชาติ", "อริยา", "อัจฉรา", "อำไพ", "เอกชัย", "กวิน", "กัญญาณัฐ", "จิรภัทร", "ชลิตา", "ญาณิศา",
+            "ฐิติมา", "ธนพร", "นภัสสร", "ปภาดา", "พัชรินทร์", "ภัทรพล", "รพีพร", "วรัญญา", "ศุภชัย", "สุธาสินี",
+            "อนันต์", "อภิญญา", "อัญชลี", "กฤติน", "กานต์ชนก", "จิรดา", "ชนัญชิดา", "ญาดา", "ฐิติพงศ์", "ธนวินท์",
+            "นันทิยา", "ปณิธาน", "พัชราภรณ์", "ภัทรพงศ์", "รุ่งนภา", "วรินทร", "ศุภลักษณ์", "สุภาภรณ์", "อเนก", "อารีรัตน์",
+            "กฤตภาส", "กานต์ธีรา", "จิรพัฒน์", "ชนิตา", "ญาณิน", "ฐิติรัตน์", "ธนัช", "นันทพร", "ปภาวิน", "พัชรพล",
+            "ภัทรพล", "รุ่งโรจน์", "วรินทร", "ศุภกร", "สุภาวดี", "อเนชา", "อารยา", "กฤตยา", "กานต์พิชชา", "จิรภา",
+            "ชนิศา", "ญาณิศา", "ฐิติมา", "ธนัชญา", "นันทวัน", "ปภาวดี", "พัชราภา", "ภัทรวดี", "รุ่งเรือง", "วรินทร์",
+            "ศุภรัตน์", "สุภัทรา", "อนงค์นาถ", "อารีย์", "กฤติยา", "กานต์พิชญ์", "จิรวัฒน์", "ชนิษฐา", "ญาณิศา", "ฐิติรัตน์",
+            "ธนัชพร", "นันทิพร", "ปภาวรินทร์", "พัชราพร", "ภัทรินทร์", "รุ่งอรุณ", "วรินทร์ทิพย์", "ศุภวรรณ", "สุภาภรณ์", "อนงค์นาถ",
+            "อารีรัตน์", "กฤติยา", "กานต์พิชญ์", "จิรวัฒน์", "ชนิษฐา", "ญาณิศา", "ฐิติรัตน์", "ธนัชพร", "นันทิพร", "ปภาวรินทร์",
+            "พัชราพร", "ภัทรินทร์", "รุ่งอรุณ", "วรินทร์ทิพย์", "ศุภวรรณ", "สุภาภรณ์", "อนงค์นาถ",
+            "กฤษณา", "กัญญาภัค", "จิรภัทร", "ชนิสรา", "ญาณิกา", "ฐิตินันท์", "ธนัชภรณ์", "นันทิมา", "ปภาวดี", "พัชราภา",
+            "ภัทรวดี", "รุ่งเรือง", "วรินทร์", "ศุภรัตน์", "สุภัทรา", "อนงค์นาถ", "อารีย์", "กฤติยา", "กานต์พิชญ์", "จิรวัฒน์",
+            "ชนิษฐา", "ญาณิศา", "ฐิติรัตน์", "ธนัชพร", "นันทิพร", "ปภาวรินทร์", "พัชราพร", "ภัทรินทร์", "รุ่งอรุณ", "วรินทร์ทิพย์",
+            "ศุภวรรณ", "สุภาภรณ์", "อนงค์นาถ", "อารีรัตน์", "กฤติยา", "กานต์พิชญ์", "จิรวัฒน์", "ชนิษฐา", "ญาณิศา", "ฐิติรัตน์",
+            "ธนัชพร", "นันทิพร", "ปภาวรินทร์", "พัชราพร", "ภัทรินทร์", "รุ่งอรุณ", "วรินทร์ทิพย์", "ศุภวรรณ", "สุภาภรณ์", "อนงค์นาถ",
+            "กฤษณา", "กัญญาภัค", "จิรภัทร", "ชนิสรา", "ญาณิกา", "ฐิตินันท์", "ธนัชภรณ์", "นันทิมา", "ปภาวดี", "พัชราภา",
+            "ภัทรวดี", "รุ่งเรือง", "วรินทร์", "ศุภรัตน์", "สุภัทรา", "อนงค์นาถ", "อารีย์", "กฤติยา", "กานต์พิชญ์", "จิรวัฒน์",
+            "ชนิษฐา", "ญาณิศา", "ฐิติรัตน์", "ธนัชพร", "นันทิพร", "ปภาวรินทร์", "พัชราพร", "ภัทรินทร์", "รุ่งอรุณ", "วรินทร์ทิพย์",
+            "ศุภวรรณ", "สุภาภรณ์", "อนงค์นาถ"
+        ];
+
+        const thaiSurnameWords1Syllable = [
+            "สุข", "ดี", "ศรี", "บุญ", "ทอง", "แก้ว", "เพชร", "แสง", "ฟ้า", "ดิน", "น้ำ", "ใจ",
+            "รัก", "รุ่ง", "งาม", "มั่น", "คง", "ยิ่ง", "ใหญ่", "พงษ์", "ธน", "ชัย", "พร", "เดช",
+            "โชค", "ลาภ", "ยศ", "ศักดิ์", "ฤทธิ์", "สิทธิ์", "ธรรม", "คุณ", "มง"
+        ];
+        const thaiSurnameWords2Syllables = [
+            "เจริญ", "มงคล", "สวัสดิ์", "ศิลป์", "มั่งคั่ง", "ร่ำรวย", "ผาสุก", "วิไล", "ไพศาล", "อุดม",
+            "วัฒนา", "พิทักษ์", "ประเสริฐ", "สมบูรณ์", "บารมี", "เมตตา", "ปรีดา", "พูนสุข", "โชคดี",
+            "สุวรรณ", "พิพัฒน์", "รุ่งเรือง", "ธนากร", "ศิริชัย", "สุขสันต์", "บุญฤทธิ์", "ทิพย์รัตน์",
+            "ปัญญา", "วิชา", "สมบัติ", "รัตนา", "อัญชลี", "กานต์", "พิชญา", "วาสนา", "อารยา"
+        ];
+        const thaiSurnameWords3Syllables = [
+            "เกียรติยศ", "เจริญสุข", "ทิพย์รัตน์", "มหาศาล", "อุดมสุข", "ประภัสสร", "สิริโชค", "ธนทรัพย์",
+            "เจริญพร", "สิริวัฒน์", "มงคลชัย", "โชคอนันต์"
+        ];
+        const thaiSurnameWords4Syllables = [
+            "รัตนากร", "บุญญานุภาพ"
+        ];
+
+        const allThaiSurnameWords = [
+            ...thaiSurnameWords1Syllable,
+            ...thaiSurnameWords2Syllables,
+            ...thaiSurnameWords3Syllables,
+            ...thaiSurnameWords4Syllables
+        ];
+
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function getSyllableCount(word) {
+            if (thaiSurnameWords1Syllable.includes(word)) return 1;
+            if (thaiSurnameWords2Syllables.includes(word)) return 2;
+            if (thaiSurnameWords3Syllables.includes(word)) return 3;
+            if (thaiSurnameWords4Syllables.includes(word)) return 4;
+            return 1; // ค่าเริ่มต้น
+        }
+
+        const generatedNameSurnames = new Set(); // เก็บชื่อ-นามสกุลที่สร้างไปแล้วเพื่อไม่ให้ซ้ำ
+
+        function generateThaiNameSurname() {
+            let newFullName;
+            let attempts = 0;
+            const maxAttempts = 1000;
+
+            do {
+                const randomName = getRandomElement(thaiSanskritNames);
+                let newSurname = '';
+                let currentSyllables = 0;
+                const targetTotalSyllables = Math.floor(Math.random() * 3) + 2; // 2, 3, หรือ 4 พยางค์
+
+                let parts = [];
+                let innerLoopAttempts = 0;
+
+                while (currentSyllables < targetTotalSyllables && innerLoopAttempts < 50) {
+                    const remainingSyllables = targetTotalSyllables - currentSyllables;
+                    const possibleWords = allThaiSurnameWords.filter(word => {
+                        const wordSyllables = getSyllableCount(word);
+                        return wordSyllables <= remainingSyllables;
+                    });
+
+                    if (possibleWords.length === 0) {
+                        break;
+                    }
+
+                    const selectedWord = getRandomElement(possibleWords);
+                    parts.push(selectedWord);
+                    currentSyllables += getSyllableCount(selectedWord);
+                    innerLoopAttempts++;
+                }
+
+                newSurname = parts.join('');
+                newFullName = `${randomName} ${newSurname}`;
+                attempts++;
+                if (attempts > maxAttempts) {
+                    console.warn("ไม่สามารถสร้างชื่อ-นามสกุลที่ไม่ซ้ำได้หลังจากหลายครั้งที่พยายาม");
+                    break;
+                }
+            } while (generatedNameSurnames.has(newFullName));
+
+            generatedNameSurnames.add(newFullName);
+            return newFullName;
+        }
+
+        document.getElementById('randomNameSurnameBtn').addEventListener('click', () => {
+            document.getElementById('nameSurnameDisplay').textContent = generateThaiNameSurname();
+        });
+        // Event listener สำหรับการคลิกเพื่อคัดลอกชื่อ-นามสกุล
+        document.getElementById('nameSurnameDisplay').addEventListener('click', () => {
+            if (document.getElementById('nameSurnameDisplay').textContent !== 'กด "สุ่ม" เพื่อสร้าง') {
+                copyToClipboard(document.getElementById('nameSurnameDisplay').textContent);
+            } else {
+                showMessage('ไม่มีชื่อ-นามสกุลให้คัดลอก', 'error');
+            }
+        });
+
+
+        // --- ส่วนเลือกธนาคาร ---
+        const bankNames = [
+            "ธนาคารกสิกรไทย", "ธนาคารกรุงเทพ", "ธนาคารกรุงไทย", "ธนาคารไทยพาณิชย์",
+            "ธนาคารกรุงศรีอยุธยา", "ธนาคารทหารไทยธนชาต", "ธนาคารออมสิน", "ธ.ก.ส.",
+            "ธนาคารซีไอเอ็มบี ไทย", "ธนาคารยูโอบี", "ธนาคารแลนด์ แอนด์ เฮ้าส์", "ธนาคารไอซีบีซี (ไทย)",
+            "ธนาคารเกียรตินาคินภัทร", "ธนาคารไทยเครดิต", "ธนาคารอาคารสงเคราะห์"
+        ];
+        // bankSelect ถูกประกาศไว้แล้วข้างบน เพื่อให้ updateLinkedFields ใช้ได้
+
+
+        // Populate bank dropdown
+        function populateBankDropdown() {
+            // เคลียร์ตัวเลือกเก่าก่อนเสมอ
+            bankSelect.innerHTML = '';
+            bankNames.forEach(bank => {
+                const option = document.createElement('option');
+                option.value = bank;
+                option.textContent = bank;
+                bankSelect.appendChild(option);
+            });
+        }
+        populateBankDropdown(); // Call to populate on load
+
+        // --- ส่วนบันทึกไฟล์ ---
+        document.getElementById('saveFileBtn').addEventListener('click', () => {
+            const user = themuizUserDisplay.textContent;
+            const nameSurname = document.getElementById('nameSurnameDisplay').textContent;
+            const phone = phoneDisplay.textContent;
+            const bank = bankSelect.value;
+            const bankAccount = bankAccountInput.value.replace(/\D/g, '');
+
+            // ตรวจสอบว่าข้อมูลหลักๆ ถูกสร้างหรือป้อนแล้ว
+            if (user === 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' || nameSurname === 'กด "สุ่ม" เพื่อสร้าง' || phone === 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' || bankAccount === '') {
+                showMessage('กรุณาสร้าง/ป้อนข้อมูลให้ครบถ้วนก่อนบันทึก', 'error');
+                return;
+            }
+
+            // จัดเรียงและเว้นวรรคตามที่พี่มุ่ยต้องการ
+            const fileContent = `
+ยูสเซอร์ : ${user}
+
+เบอร์ : ${phone}
+
+ชื่อ : ${nameSurname}
+
+ธนาคาร : ${bank}
+
+เลขบัญชี : ${bankAccount}
+            `.trim();
+
+            let filenameSuffix;
+            if (bankSelect.value === 'ธนาคารอาคารสงเคราะห์') {
+                filenameSuffix = bankAccount.length >= 3 ? bankAccount.slice(-3) : 'xxx';
+            } else {
+                filenameSuffix = bankAccount.length >= 4 ? bankAccount.slice(-4) : 'xxxx';
+            }
+            const filename = `themuiz${filenameSuffix}.txt`;
+
+            const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showMessage('บันทึกไฟล์เรียบร้อยแล้ว!');
+        });
+
+        // ตั้งค่าเริ่มต้นเมื่อโหลดหน้า
+        updateLinkedFields();
+    </script>
+</body>
+</html>
+
+
