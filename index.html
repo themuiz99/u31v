@@ -3,132 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U31V | Data Random</title>
+    <title>Themuiz | Save User</title> <!-- Changed website title -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add Font Awesome for button icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* กำหนดให้ HTML และ Body สูงเต็มหน้าจอและซ่อน Scrollbar */
+        /* Set HTML and Body to full height and hide scrollbar */
         html, body {
             height: 100%;
             margin: 0;
-            overflow: hidden; /* ซ่อน Scrollbar ของหน้าเว็บทั้งหมด เพื่อให้ฟิตหน้าจอเดียว */
+            overflow: hidden; /* Hide main scrollbar to fit a single screen */
             box-sizing: border-box;
         }
         body {
-            font-family: 'Mali', cursive; /* ใช้ฟอนต์ Mali สำหรับทั้งหน้าเว็บ */
+            font-family: 'Mali', cursive; /* Use Mali font for the entire page */
             background-color: #1a202c; /* Dark background for night mode */
             color: #e2e8f0; /* Light text color */
             display: flex;
-            flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
-            justify-content: space-between; /* กระจายพื้นที่เพื่อให้ Header และ Footer อยู่ด้านบน/ล่างสุด */
-            align-items: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
-            height: 100vh; /* กำหนดให้ Body สูงเท่า Viewport พอดี */
-            padding: 0.2rem; /* ลด Padding รอบๆ เพื่อให้มีพื้นที่มากขึ้น */
-            padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
+            flex-direction: column; /* Arrange elements vertically */
+            justify-content: space-between; /* Distribute space so Header and Footer are at top/bottom */
+            align-items: center; /* Center horizontally */
+            height: 100vh; /* Set Body height to viewport height */
+            padding: 0.2rem; /* Reduce padding around to allow more space */
+            padding-bottom: 0.2rem; /* Further reduce bottom padding */
         }
         .header-title {
-            font-size: 1.6rem; /* ลดขนาดตัวอักษรของชื่อเว็บลงอีก */
-            font-weight: 700; /* ตัวหนา */
-            color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            margin-bottom: 0.5rem; /* ลดระยะห่างจากด้านล่าง */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* เพิ่มเงาให้ดูมีมิติ */
-            text-align: center; /* จัดให้อยู่กึ่งกลาง */
-            line-height: 1.2; /* ปรับ line-height เพื่อให้ข้อความชิดกันมากขึ้น */
-            white-space: nowrap; /* ป้องกันไม่ให้ข้อความขึ้นบรรทัดใหม่ */
-            max-width: 100%; /* จำกัดความกว้างสูงสุดไม่ให้เกินขอบ */
-            overflow: hidden; /* ซ่อนส่วนที่เกิน */
-            text-overflow: ellipsis; /* แสดง ... ถ้าข้อความยาวเกิน */
+            font-size: 1.6rem; /* Further reduce title font size */
+            font-weight: 700; /* Bold font */
+            color: #ffffff; /* Change to white */
+            margin-bottom: 0.5rem; /* Reduce bottom margin */
+            text-align: center; /* Center align text */
+            line-height: 1.2; /* Adjust line-height for tighter text */
+            white-space: nowrap; /* Prevent text wrapping */
+            max-width: 100%; /* Limit max width to prevent overflow */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Show ... for overflowed text */
+            /* Add text-shadow for outline effect around each letter */
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000,
+                -2px 0 0 #000, /* Further adjustments for a clearer outline */
+                2px 0 0 #000,
+                0 -2px 0 #000,
+                0 2px 0 #000;
         }
         .container {
             width: 100%;
-            max-width: 900px; /* กำหนดความกว้างสูงสุดสำหรับหน้าจอใหญ่ */
-            flex-grow: 1; /* ให้ Container ขยายเต็มพื้นที่ที่เหลืออยู่ระหว่าง Header และ Footer */
+            max-width: 900px; /* Max width for larger screens */
+            flex-grow: 1; /* Allow container to grow and fill remaining space */
             display: grid;
-            gap: 0.6rem; /* ลดระยะห่างระหว่าง Card ลงอีก */
+            gap: 0.6rem; /* Reduce gap between cards */
             /* Responsive grid layout */
-            grid-template-columns: 1fr; /* คอลัมน์เดียวสำหรับหน้าจอเล็ก */
-            align-items: center; /* จัด Card ให้อยู่ตรงกลางแนวตั้งภายใน Grid */
-            justify-content: center; /* จัด Card ให้อยู่ตรงกลางแนวนอนภายใน Grid */
-            overflow-y: hidden; /* ซ่อน Scrollbar ของ Container เพื่อให้ฟิตหน้าจอเดียว */
-            padding: 0.2rem; /* ลด padding ภายใน Container อีก */
-            padding-bottom: 0.2rem; /* ลด padding ด้านล่างอีกเล็กน้อย */
-            height: 100%; /* ให้ Container ใช้ความสูงที่เหลือทั้งหมด */
+            grid-template-columns: 1fr; /* Single column for small screens */
+            align-items: center; /* Center cards vertically within grid */
+            justify-content: center; /* Center cards horizontally within grid */
+            overflow-y: hidden; /* Hide container scrollbar to fit single screen */
+            padding: 0.2rem; /* Reduce inner padding of container */
+            padding-bottom: 0.2rem; /* Further reduce bottom padding */
+            height: 100%; /* Make container use all remaining height */
         }
-        @media (min-width: 768px) { /* สำหรับหน้าจอขนาดกลางขึ้นไป */
+        @media (min-width: 768px) { /* For medium screens and up */
             .container {
-                grid-template-columns: repeat(3, 1fr); /* สามคอลัมน์ */
-                /* overflow-y: hidden; ยังคง hidden เพราะต้องการให้ฟิตในหน้าเดียว */
+                grid-template-columns: repeat(3, 1fr); /* Three columns */
             }
         }
         .card {
-            background-color: #2d3748; /* สีเข้มขึ้นเล็กน้อยสำหรับ Card */
-            border-radius: 0.75rem; /* ขอบโค้งมน */
-            padding: 0.7rem; /* ลด padding ภายใน Card อีก */
+            background-color: #2d3748; /* Slightly darker color for cards */
+            border-radius: 0.75rem; /* Rounded corners */
+            padding: 0.7rem; /* Reduce inner padding of card */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between; /* กระจายพื้นที่ให้เท่ากัน */
+            justify-content: space-between; /* Distribute space evenly */
             text-align: center;
-            flex-grow: 1; /* ให้ Card ขยายเต็มพื้นที่ใน Grid Cell */
-            min-height: 0; /* อนุญาตให้ Card หดได้ถ้าจำเป็น */
+            flex-grow: 1; /* Allow card to grow within grid cell */
+            min-height: 0; /* Allow card to shrink if necessary */
         }
         .result-display {
-            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
-            padding: 0.5rem 0.7rem; /* เพิ่ม padding ของ display area เล็กน้อย */
+            background-color: #ffffff; /* Change to white */
+            color: #1a202c; /* Change to black for contrast */
+            padding: 0.5rem 0.7rem; /* Slightly increase display area padding */
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
-            font-weight: 800; /* ตัวหนาขึ้น */
+            font-size: 1.1rem; /* Slightly increase font size */
+            font-weight: 800; /* Bolder font */
             word-break: break-all;
             text-align: center;
-            cursor: pointer; /* เพิ่ม cursor pointer เพื่อบ่งบอกว่าคลิกได้ */
-            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+            cursor: pointer; /* Add pointer cursor to indicate clickability */
+            transition: background-color 0.2s ease-in-out; /* Add transition */
         }
-        /* สไตล์สำหรับข้อความ Placeholder ใน .result-display */
+        /* Style for placeholder text in .result-display */
         .result-display.placeholder-text {
-            font-size: 0.9rem; /* ขนาดตัวอักษรเล็กลง */
-            color: #a0aec0; /* สีจางลง */
-            font-weight: 600; /* ไม่หนาเท่าผลลัพธ์ปกติ */
+            font-size: 0.9rem; /* Smaller font size */
+            color: #a0aec0; /* Lighter color */
+            font-weight: 600; /* Not as bold as normal results */
         }
 
         .input-field {
-            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+            background-color: #ffffff; /* Change to white */
+            color: #1a202c; /* Change to black for contrast */
             padding: 0.5rem 0.7rem;
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-size: 1.1rem; /* Slightly increase font size */
             font-weight: 600;
             border: none;
             outline: none;
             text-align: center;
-            cursor: text; /* เปลี่ยนเป็น cursor text สำหรับ input field */
-            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+            cursor: text; /* Change to text cursor for input field */
+            transition: background-color 0.2s ease-in-out; /* Add transition */
         }
         .input-field:hover {
-            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
+            background-color: #f0f0f0; /* Lighter color on hover */
         }
-        .bank-select-field { /* คลาสใหม่สำหรับ select ธนาคาร */
-            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            color: #1a202c; /* เปลี่ยนเป็นสีดำเพื่อคอนทราสต์ */
+        .bank-select-field { /* New class for select bank */
+            background-color: #ffffff; /* Change to white */
+            color: #1a202c; /* Change to black for contrast */
             padding: 0.5rem 0.7rem;
             border-radius: 0.5rem;
             margin-bottom: 0.6rem;
             width: 100%;
-            font-size: 1.1rem; /* เพิ่มขนาดตัวอักษรเล็กน้อย */
+            font-size: 1.1rem; /* Slightly increase font size */
             font-weight: 600;
             border: none;
             outline: none;
             text-align: center;
-            cursor: pointer; /* คง cursor pointer ไว้สำหรับการเลือก */
-            transition: background-color 0.2s ease-in-out; /* เพิ่ม transition */
+            cursor: pointer; /* Keep pointer cursor for selection */
+            transition: background-color 0.2s ease-in-out; /* Add transition */
         }
         .bank-select-field:hover {
-            background-color: #f0f0f0; /* สีอ่อนลงเมื่อ hover */
+            background-color: #f0f0f0; /* Lighter color on hover */
         }
 
         .button-group {
@@ -138,13 +148,21 @@
             justify-content: center;
         }
         .btn {
-            padding: 0.4rem 0.8rem;
+            padding: 0.6rem 0.8rem; /* Adjusted padding for better button size */
             border-radius: 0.5rem;
             font-weight: 700;
             cursor: pointer;
             transition: background-color 0.2s ease-in-out;
-            flex: 1;
-            font-size: 0.8rem;
+            flex: 1; /* Make buttons fill available space */
+            font-size: 0.85rem; /* Adjusted font size for single line */
+            display: flex; /* Display icon and text on the same line */
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem; /* Space between icon and text */
+            white-space: nowrap; /* Ensure text stays on one line */
+        }
+        .btn i {
+            font-size: 1.2em; /* Ensure icon scales well with button font size */
         }
         .btn-primary {
             background-color: #667eea;
@@ -191,25 +209,95 @@
         .message-box.error {
             background-color: #ef4444;
         }
+         /* Styles for Prompt Box */
+        .prompt-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .prompt-box-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .prompt-box-content {
+            background-color: #2d3748;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+        .prompt-box-content h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+        }
+        .prompt-box-content input {
+            background-color: #ffffff;
+            color: #1a202c;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0.5rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .prompt-box-buttons {
+            display: flex;
+            justify-content: space-around;
+            gap: 0.5rem;
+        }
+        .prompt-box-buttons button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            flex: 1;
+            border: none;
+        }
+        .prompt-box-ok {
+            background-color: #48bb78;
+            color: white;
+        }
+        .prompt-box-ok:hover {
+            background-color: #38a169;
+        }
+        .prompt-box-cancel {
+            background-color: #ef4444;
+            color: white;
+        }
+        .prompt-box-cancel:hover {
+            background-color: #dc2626;
+        }
     </style>
 </head>
 <body>
-    <div class="header-title">U31V</div>
+    <div class="header-title">Themuiz | Save User</div> <!-- Changed website title -->
 
     <div class="container">
-        <!-- ยูสเซอร์ -->
+        <!-- Combined User and Phone Card -->
         <div class="card">
-            <h2 class="text-lg font-bold mb-3">ยูสเซอร์</h2>
-            <div id="themuizUserDisplay" class="result-display placeholder-text">ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว</div>
+            <h2 class="text-lg font-bold mb-3">ยูสเซอร์ และ เบอร์โทร</h2> <!-- Updated combined title -->
+            <div id="themuizUserDisplay" class="result-display placeholder-text mb-2">ผลลัพธ์ยูสเซอร์จะโชว์ที่นี่</div> <!-- Added mb-2 for spacing -->
+            <div id="phoneDisplay" class="result-display placeholder-text">ผลลัพธ์เบอร์โทรจะโชว์ที่นี่</div>
         </div>
 
-        <!-- เบอร์โทร -->
-        <div class="card">
-            <h2 class="text-lg font-bold mb-3">เบอร์โทร</h2>
-            <div id="phoneDisplay" class="result-display placeholder-text">ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว</div>
-        </div>
-
-        <!-- สุ่มชื่อ-นามสกุล -->
+        <!-- Random Name-Surname -->
         <div class="card">
             <h2 class="text-lg font-bold mb-3">ชื่อ-นามสกุล</h2>
             <div id="nameSurnameDisplay" class="result-display">กด "สุ่ม" เพื่อสร้าง</div>
@@ -218,18 +306,30 @@
             </div>
         </div>
 
-        <!-- เลือกธนาคาร -->
+        <!-- Select Bank -->
         <div class="card">
             <h2 class="text-lg font-bold mb-3">เลือกธนาคาร</h2>
             <select id="bankSelect" class="bank-select-field">
-                <!-- ตัวเลือกจะถูกสร้างด้วย JavaScript -->
+                <!-- Options will be generated by JavaScript -->
             </select>
         </div>
 
-        <!-- กรอกเลขบัญชีธนาคาร -->
+        <!-- Enter Bank Account Number -->
         <div class="card">
             <h2 class="text-lg font-bold mb-3">เลขบัญชีธนาคาร</h2>
             <input type="text" id="bankAccountInput" class="input-field" placeholder="กรอกเลขบัญชีที่นี่">
+            <!-- Add buttons for bank account management -->
+            <div class="button-group mt-2"> <!-- Add a small top margin -->
+                <button id="pasteBankAccBtn" class="btn bg-blue-500 hover:bg-blue-600 text-white">
+                    <i class="fas fa-paste"></i> วาง
+                </button>
+                <button id="copyBankAccBtn" class="btn bg-green-500 hover:bg-green-600 text-white">
+                    <i class="fas fa-copy"></i> คัดลอก
+                </button>
+                <button id="clearBankAccBtn" class="btn bg-red-500 hover:bg-red-600 text-white">
+                    <i class="fas fa-trash-alt"></i> ล้าง
+                </button>
+            </div>
         </div>
     </div>
 
@@ -241,8 +341,20 @@
 
     <div id="messageBox" class="message-box"></div>
 
+    <!-- Custom Prompt Box for Website Name -->
+    <div id="websiteNamePromptOverlay" class="prompt-box-overlay">
+        <div class="prompt-box-content">
+            <h3>กรุณาป้อนชื่อเว็บ:</h3>
+            <input type="text" id="websiteNameInput" placeholder="">
+            <div class="prompt-box-buttons">
+                <button id="promptOkBtn" class="prompt-box-ok">ตกลง</button>
+                <button id="promptCancelBtn" class="prompt-box-cancel">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ฟังก์ชันสำหรับแสดงข้อความแจ้งเตือน
+        // Function to display notification messages
         function showMessage(message, type = 'success') {
             const messageBox = document.getElementById('messageBox');
             messageBox.textContent = message;
@@ -254,115 +366,115 @@
             }, 2000);
         }
 
-        // ฟังก์ชันสำหรับคัดลอกข้อความไปที่คลิปบอร์ด
+        // Function to copy text to clipboard
         function copyToClipboard(text) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
             document.body.appendChild(textarea);
             textarea.select();
             try {
+                // Use document.execCommand('copy') as navigator.clipboard.writeText might not work in iFrame
                 document.execCommand('copy');
                 showMessage('คัดลอกแล้ว!');
             } catch (err) {
-                console.error('ไม่สามารถคัดลอกได้:', err);
+                console.error('Failed to copy:', err);
                 showMessage('คัดลอกไม่สำเร็จ', 'error');
             }
             document.body.removeChild(textarea);
         }
 
-        // --- ส่วนยูสเซอร์ และเบอร์โทร (ผูกกับเลขบัญชี) ---
+        // --- User and Phone Number section (linked to bank account) ---
         const themuizUserDisplay = document.getElementById('themuizUserDisplay');
         const phoneDisplay = document.getElementById('phoneDisplay');
         const bankAccountInput = document.getElementById('bankAccountInput');
-        const bankSelect = document.getElementById('bankSelect'); // ได้มาแล้วจากส่วนเลือกธนาคาร
+        const bankSelect = document.getElementById('bankSelect');
 
-        // ฟังก์ชันอัปเดตยูสเซอร์และเบอร์โทรตามเลขบัญชี
+        // Function to update user and phone number based on bank account
         function updateLinkedFields() {
-            const accountNumber = bankAccountInput.value.replace(/\D/g, ''); // ลบอักขระที่ไม่ใช่ตัวเลขออก
+            const accountNumber = bankAccountInput.value.replace(/\D/g, ''); // Remove non-numeric characters
             const selectedBank = bankSelect.value;
 
-            // อัปเดตยูสเซอร์
-            if (accountNumber.length > 0) { // ตรวจสอบว่ามีการป้อนเลขบัญชี
+            // Update user
+            if (accountNumber.length > 0 && selectedBank !== '') { // Check if account number is entered and bank is selected
                 let suffixDigits;
                 if (selectedBank === 'ธนาคารอาคารสงเคราะห์') {
+                    // Use last 3 digits for Government Housing Bank
                     suffixDigits = accountNumber.slice(-3);
-                    // ตรวจสอบความยาวของ accountNumber เพื่อให้แน่ใจว่ามี 3 หลักก่อนแสดงผล
                     if (accountNumber.length >= 3) {
                         themuizUserDisplay.textContent = `themuiz${suffixDigits}`;
                         themuizUserDisplay.classList.remove('placeholder-text');
                     } else {
-                        themuizUserDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                        themuizUserDisplay.textContent = 'ผลลัพธ์ยูสเซอร์จะโชว์ที่นี่';
                         themuizUserDisplay.classList.add('placeholder-text');
                     }
                 } else {
+                    // Use last 4 digits for other banks
                     suffixDigits = accountNumber.slice(-4);
-                    // ตรวจสอบความยาวของ accountNumber เพื่อให้แน่ใจว่ามี 4 หลักก่อนแสดงผล
                     if (accountNumber.length >= 4) {
                         themuizUserDisplay.textContent = `themuiz${suffixDigits}`;
                         themuizUserDisplay.classList.remove('placeholder-text');
                     } else {
-                        themuizUserDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                        themuizUserDisplay.textContent = 'ผลลัพธ์ยูสเซอร์จะโชว์ที่นี่';
                         themuizUserDisplay.classList.add('placeholder-text');
                     }
                 }
             } else {
-                themuizUserDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                themuizUserDisplay.textContent = 'ผลลัพธ์ยูสเซอร์จะโชว์ที่นี่';
                 themuizUserDisplay.classList.add('placeholder-text');
             }
 
-
-            // อัปเดตเบอร์โทร (ยังคงใช้ 8 หลักท้ายเหมือนเดิม)
-            if (accountNumber.length >= 8) {
+            // Update phone number (still uses last 8 digits)
+            if (accountNumber.length >= 8 && selectedBank !== '') { // Check if account number is entered and bank is selected
                 const lastEightDigits = accountNumber.slice(-8);
                 phoneDisplay.textContent = `09${lastEightDigits}`;
                 phoneDisplay.classList.remove('placeholder-text');
             } else {
-                phoneDisplay.textContent = 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว';
+                phoneDisplay.textContent = 'ผลลัพธ์เบอร์โทรจะโชว์ที่นี่';
                 phoneDisplay.classList.add('placeholder-text');
             }
         }
 
-        // Event listener สำหรับการป้อนเลขบัญชี
+        // Event listener for bank account input
         bankAccountInput.addEventListener('input', updateLinkedFields);
-        // Event listener สำหรับการเปลี่ยนธนาคารที่เลือก
+        // Event listener for bank selection change
         bankSelect.addEventListener('change', updateLinkedFields);
 
 
-        // Event listeners สำหรับการคลิกเพื่อคัดลอก
-        // ยูสเซอร์
+        // Event listeners for click to copy
+        // User
         themuizUserDisplay.addEventListener('click', () => {
-            if (themuizUserDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && themuizUserDisplay.textContent !== '') {
+            if (themuizUserDisplay.textContent !== 'ผลลัพธ์ยูสเซอร์จะโชว์ที่นี่' && themuizUserDisplay.textContent !== '') {
                 copyToClipboard(themuizUserDisplay.textContent);
             } else {
                 showMessage('ไม่มีข้อมูลยูสเซอร์ให้คัดลอก', 'error');
             }
         });
 
-        // เบอร์โทร
+        // Phone number
         phoneDisplay.addEventListener('click', () => {
-            if (phoneDisplay.textContent !== 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' && phoneDisplay.textContent !== '') {
+            if (phoneDisplay.textContent !== 'ผลลัพธ์เบอร์โทรจะโชว์ที่นี่' && phoneDisplay.textContent !== '') {
                 copyToClipboard(phoneDisplay.textContent);
             } else {
                 showMessage('ไม่มีข้อมูลเบอร์โทรให้คัดลอก', 'error');
             }
         });
 
-        // เลขบัญชี (สำหรับ input field ที่กรอกได้)
+        // Bank account (for input field)
         bankAccountInput.addEventListener('click', (event) => {
-            // ป้องกันการคัดลอกเมื่อคลิกเพื่อโฟกัสหรือพิมพ์
+            // Prevent copying when clicking to focus or type
             if (event.target === document.activeElement) {
-                // ถ้า element นี้ถูก focus อยู่แล้ว (กำลังพิมพ์) ไม่ต้องคัดลอก
+                // If this element is already focused (typing), do not copy
                 return;
             }
-            if (bankAccountInput.value !== '') {
-                copyToClipboard(bankAccountInput.value);
+            if (bankAccountInput.value.trim() !== '') {
+                copyToClipboard(bankAccountInput.value.trim());
             } else {
                 showMessage('ไม่มีเลขบัญชีให้คัดลอก', 'error');
             }
         });
 
 
-        // --- ส่วนชื่อ-นามสกุล ---
+        // --- Name-Surname section ---
         const thaiSanskritNames = [
             "อรุณ", "เมษา", "นารา", "ปัญญา", "วิชา", "สุริยา", "จันทรา", "อัปสร", "มณี", "กมล",
             "เพชร", "รุ่ง", "แก้ว", "ทิพย์", "บุษบา", "มาลี", "วารี", "ศิริ", "สุข", "สมบัติ",
@@ -428,10 +540,10 @@
             if (thaiSurnameWords2Syllables.includes(word)) return 2;
             if (thaiSurnameWords3Syllables.includes(word)) return 3;
             if (thaiSurnameWords4Syllables.includes(word)) return 4;
-            return 1; // ค่าเริ่มต้น
+            return 1; // Default value
         }
 
-        const generatedNameSurnames = new Set(); // เก็บชื่อ-นามสกุลที่สร้างไปแล้วเพื่อไม่ให้ซ้ำ
+        const generatedNameSurnames = new Set(); // Store generated names to avoid duplicates
 
         function generateThaiNameSurname() {
             let newFullName;
@@ -442,7 +554,7 @@
                 const randomName = getRandomElement(thaiSanskritNames);
                 let newSurname = '';
                 let currentSyllables = 0;
-                const targetTotalSyllables = Math.floor(Math.random() * 3) + 2; // 2, 3, หรือ 4 พยางค์
+                const targetTotalSyllables = Math.floor(Math.random() * 3) + 2; // 2, 3, or 4 syllables
 
                 let parts = [];
                 let innerLoopAttempts = 0;
@@ -468,7 +580,7 @@
                 newFullName = `${randomName} ${newSurname}`;
                 attempts++;
                 if (attempts > maxAttempts) {
-                    console.warn("ไม่สามารถสร้างชื่อ-นามสกุลที่ไม่ซ้ำได้หลังจากหลายครั้งที่พยายาม");
+                    console.warn("Could not generate a unique name-surname after many attempts");
                     break;
                 }
             } while (generatedNameSurnames.has(newFullName));
@@ -480,7 +592,7 @@
         document.getElementById('randomNameSurnameBtn').addEventListener('click', () => {
             document.getElementById('nameSurnameDisplay').textContent = generateThaiNameSurname();
         });
-        // Event listener สำหรับการคลิกเพื่อคัดลอกชื่อ-นามสกุล
+        // Event listener for click to copy name-surname
         document.getElementById('nameSurnameDisplay').addEventListener('click', () => {
             if (document.getElementById('nameSurnameDisplay').textContent !== 'กด "สุ่ม" เพื่อสร้าง') {
                 copyToClipboard(document.getElementById('nameSurnameDisplay').textContent);
@@ -490,20 +602,27 @@
         });
 
 
-        // --- ส่วนเลือกธนาคาร ---
+        // --- Bank selection section ---
         const bankNames = [
             "ธนาคารกสิกรไทย", "ธนาคารกรุงเทพ", "ธนาคารกรุงไทย", "ธนาคารไทยพาณิชย์",
             "ธนาคารกรุงศรีอยุธยา", "ธนาคารทหารไทยธนชาต", "ธนาคารออมสิน", "ธ.ก.ส.",
             "ธนาคารซีไอเอ็มบี ไทย", "ธนาคารยูโอบี", "ธนาคารแลนด์ แอนด์ เฮ้าส์", "ธนาคารไอซีบีซี (ไทย)",
             "ธนาคารเกียรตินาคินภัทร", "ธนาคารไทยเครดิต", "ธนาคารอาคารสงเคราะห์"
         ];
-        // bankSelect ถูกประกาศไว้แล้วข้างบน เพื่อให้ updateLinkedFields ใช้ได้
-
 
         // Populate bank dropdown
         function populateBankDropdown() {
-            // เคลียร์ตัวเลือกเก่าก่อนเสมอ
+            // Clear old options first
             bankSelect.innerHTML = '';
+
+            // Add "Please select bank" option as the first and default
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'โปรดเลือกธนาคาร';
+            defaultOption.selected = true; // Set as default selected
+            defaultOption.disabled = true; // Disable selecting it
+            bankSelect.appendChild(defaultOption);
+
             bankNames.forEach(bank => {
                 const option = document.createElement('option');
                 option.value = bank;
@@ -513,21 +632,106 @@
         }
         populateBankDropdown(); // Call to populate on load
 
-        // --- ส่วนบันทึกไฟล์ ---
-        document.getElementById('saveFileBtn').addEventListener('click', () => {
+        // --- Custom Prompt Box for saving file ---
+        const websiteNamePromptOverlay = document.getElementById('websiteNamePromptOverlay');
+        const websiteNameInput = document.getElementById('websiteNameInput');
+        const promptOkBtn = document.getElementById('promptOkBtn');
+        const promptCancelBtn = document.getElementById('promptCancelBtn');
+
+        function showWebsiteNamePrompt() {
+            return new Promise((resolve) => {
+                websiteNameInput.value = ''; // Clear old value
+                websiteNamePromptOverlay.classList.add('show');
+                websiteNameInput.focus(); // Focus on input field
+
+                const handleOk = () => {
+                    websiteNamePromptOverlay.classList.remove('show');
+                    resolve(websiteNameInput.value.trim());
+                    removeListeners();
+                };
+
+                const handleCancel = () => {
+                    websiteNamePromptOverlay.classList.remove('show');
+                    resolve(null); // Return null on cancel
+                    removeListeners();
+                };
+
+                const handleKeyPress = (event) => {
+                    if (event.key === 'Enter') {
+                        handleOk();
+                    }
+                };
+
+                promptOkBtn.addEventListener('click', handleOk);
+                promptCancelBtn.addEventListener('click', handleCancel);
+                websiteNameInput.addEventListener('keypress', handleKeyPress);
+
+                const removeListeners = () => {
+                    promptOkBtn.removeEventListener('click', handleOk);
+                    promptCancelBtn.removeEventListener('click', handleCancel);
+                    websiteNameInput.removeEventListener('keypress', handleKeyPress);
+                };
+            });
+        }
+
+        // --- Bank account management buttons ---
+        document.getElementById('pasteBankAccBtn').addEventListener('click', async () => {
+            try {
+                // Attempt to read data directly from clipboard
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    bankAccountInput.value = text.replace(/\D/g, ''); // Paste only numbers
+                    updateLinkedFields();
+                    showMessage('วางข้อมูลเรียบร้อยแล้ว!');
+                } else {
+                    showMessage('คลิปบอร์ดว่างเปล่า หรือไม่สามารถอ่านได้', 'error');
+                }
+            } catch (err) {
+                console.error('Failed to paste from clipboard:', err);
+                // The browser/iframe security prevents direct clipboard access without user action
+                // For this environment, we'll indicate failure. For external browsers, it might work.
+                showMessage('ไม่สามารถเข้าถึงคลิปบอร์ดได้', 'error');
+            }
+        });
+
+        document.getElementById('copyBankAccBtn').addEventListener('click', () => {
+            if (bankAccountInput.value.trim() !== '') {
+                copyToClipboard(bankAccountInput.value.trim());
+            } else {
+                showMessage('ไม่มีเลขบัญชีให้คัดลอก', 'error');
+            }
+        });
+
+        document.getElementById('clearBankAccBtn').addEventListener('click', () => {
+            bankAccountInput.value = '';
+            updateLinkedFields();
+            showMessage('ล้างข้อมูลเรียบร้อยแล้ว!');
+        });
+
+
+        // --- Save File section ---
+        document.getElementById('saveFileBtn').addEventListener('click', async () => {
             const user = themuizUserDisplay.textContent;
             const nameSurname = document.getElementById('nameSurnameDisplay').textContent;
             const phone = phoneDisplay.textContent;
             const bank = bankSelect.value;
             const bankAccount = bankAccountInput.value.replace(/\D/g, '');
 
-            // ตรวจสอบว่าข้อมูลหลักๆ ถูกสร้างหรือป้อนแล้ว
-            if (user === 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' || nameSurname === 'กด "สุ่ม" เพื่อสร้าง' || phone === 'ผลลัพธ์จะโชว์เมื่อกรอกข้อมูลครบแล้ว' || bankAccount === '') {
-                showMessage('กรุณาสร้าง/ป้อนข้อมูลให้ครบถ้วนก่อนบันทึก', 'error');
+            // Check if main data is generated or entered
+            if (user === 'ผลลัพธ์ยูสเซอร์จะโชว์ที่นี่' || nameSurname === 'กด "สุ่ม" เพื่อสร้าง' || phone === 'ผลลัพธ์เบอร์โทรจะโชว์ที่นี่' || bankAccount === '' || bank === '') {
+                showMessage('กรุณาสร้าง/ป้อนข้อมูลให้ครบถ้วนและเลือกธนาคารก่อนบันทึก', 'error');
                 return;
             }
 
-            // จัดเรียงและเว้นวรรคตามที่พี่มุ่ยต้องการ
+            // Show Custom Prompt Box to ask for website name
+            const websiteName = await showWebsiteNamePrompt();
+
+            if (websiteName === null || websiteName === '') {
+                showMessage('ยกเลิกการบันทึก หรือชื่อเว็บว่างเปล่า', 'error');
+                return;
+            }
+
+            // Arrange and space content as requested
             const fileContent = `
 ยูสเซอร์ : ${user}
 
@@ -540,13 +744,8 @@
 เลขบัญชี : ${bankAccount}
             `.trim();
 
-            let filenameSuffix;
-            if (bankSelect.value === 'ธนาคารอาคารสงเคราะห์') {
-                filenameSuffix = bankAccount.length >= 3 ? bankAccount.slice(-3) : 'xxx';
-            } else {
-                filenameSuffix = bankAccount.length >= 4 ? bankAccount.slice(-4) : 'xxxx';
-            }
-            const filename = `themuiz${filenameSuffix}.txt`;
+            // New file name: "{Entered Website Name} - {Displayed User}.txt" (changed _ to -)
+            const filename = `${websiteName} - ${user}.txt`;
 
             const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
@@ -558,7 +757,7 @@
             showMessage('บันทึกไฟล์เรียบร้อยแล้ว!');
         });
 
-        // ตั้งค่าเริ่มต้นเมื่อโหลดหน้า
+        // Initial setup on page load
         updateLinkedFields();
     </script>
 </body>
